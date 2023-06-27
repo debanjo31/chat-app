@@ -123,10 +123,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     fetchMessages();
 
     selectedChatCompare = selectedChat;
+    console.log(selectedChat);
     // eslint-disable-next-line
   }, [selectedChat]);
 
   useEffect(() => {
+    console.log(selectedChat);
     socket.on("message recieved", (newMessageRecieved) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
@@ -250,6 +252,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={typingHandler}
+                className="block mt-48 "
               />
             </FormControl>
           </Box>

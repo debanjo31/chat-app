@@ -12,6 +12,7 @@ const app = express();
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json()); // to accept json data
 dotenv.config();
+connectDB();
 
 app.get("/", (req, res) => {
   res.send("API is running");
