@@ -9,8 +9,7 @@ const ChatPage = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
   const { user, selectedChat } = ChatState();
   console.log(selectedChat);
-  console.log(selectedChat);
-  console.log(selectedChat);
+  
   return (
     <div className="h-screen w-full  bg-green-800 text-white">
       {user && <SideDrawer />}

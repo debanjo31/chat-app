@@ -65,7 +65,7 @@ const MyChats = ({ fetchAgain }) => {
   // alignItems="center"
   // className="h-96"
   return (
-    <div className="bg-white p-2 md:p-6 text-green-800 w-2/6 rounded">
+    <div className={`bg-white p-2 md:p-6 text-green-800 w-2/6 rounded ${selectedChat ? 'hidden md:block' : 'w-full'}`}>
       <div className="w-full flex flex-col mb-8 ">
         <p className="text-2xl font-bold mb-2">My Chats</p>
         <GroupChatModal>

@@ -8,7 +8,7 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat } = ChatState();
 
   return (
-    <div className="chatBox text-black w-full flex flex-col items-center rounded bg-white relative">
+    <div className={`chatBox text-black w-full flex flex-col items-center rounded bg-white relative ${selectedChat ? 'w-full' : 'hidden md:block'}`}>
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </div>
   );

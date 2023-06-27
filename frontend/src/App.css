@@ -14,9 +14,6 @@
 }
 
 .main-page {
-  height: 100vh;
+  height: calc(100vh - 7.4%);
 }
 
-.chatBox {
-  height: 100vh;
-}

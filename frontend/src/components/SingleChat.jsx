@@ -123,7 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     fetchMessages();
 
     selectedChatCompare = selectedChat;
-    console.log(selectedChat);
+    
     // eslint-disable-next-line
   }, [selectedChat]);
 
