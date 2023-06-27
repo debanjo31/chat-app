@@ -76,7 +76,7 @@ function SideDrawer() {
         },
       };
 
-      const { data } = await axios.get(`/api/user/?search=${search}`, config);
+      const { data } = await axios.get(`https://chat-app-tien.onrender.com/api/user?search=${search}`, config);
 
       setLoading(false);
       setSearchResult(data);
@@ -106,7 +106,7 @@ function SideDrawer() {
         },
       };
       const { data } = await axios.post(
-        `http://localhost:5000/api/chat`,
+        `https://chat-app-tien.onrender.com/api/chat`,
         { userId },
         config
       );

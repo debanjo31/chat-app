@@ -52,7 +52,7 @@ const Signup = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/user/",
+        "https://chat-app-tien.onrender.com/api/user",
         {
           name,
           email,
