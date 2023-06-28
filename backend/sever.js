@@ -2,14 +2,13 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { chats } = require("./data/data");
 const connectDB = require("./config/db");
-const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+
 app.use(express.json()); // to accept json data
 dotenv.config();
 connectDB();
