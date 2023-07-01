@@ -25,7 +25,10 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get("https://chat-app-tien.onrender.com/api/chat", config);
+      const { data } = await axios.get(
+        "https://chat-app-tien.onrender.com/api/chat",
+        config
+      );
       setChats(data);
     } catch (error) {
       toast({
@@ -45,27 +48,12 @@ const MyChats = ({ fetchAgain }) => {
     // eslint-disable-next-line
   }, [fetchAgain]);
 
-  // d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
-  //     flexDir="column"
-  //     alignItems="center"
-  //     p={3}
-  //     bg="white"
-  //     w={{ base: "100%", md: "31%" }}
-  //     borderRadius="lg"
-  //     borderWidth="1px"
-  //     className="relative"
-
-  // pb={3}
-  // px={3}
-  // fontSize={{ base: "28px", md: "30px" }}
-  // fontFamily="Work sans"
-  // d="flex"
-  // w="100%"
-  // justifyContent="space-between"
-  // alignItems="center"
-  // className="h-96"
   return (
-    <div className={`bg-white p-2 md:p-6 text-green-800 w-2/6 rounded ${selectedChat ? 'hidden md:block' : 'w-full'}`}>
+    <div
+      className={`bg-white p-2 md:p-6 text-green-800  rounded ${
+        selectedChat ? "hidden md:block" : "w-2/6"
+      }`}
+    >
       <div className="w-full flex flex-col mb-8 ">
         <p className="text-2xl font-bold mb-2">My Chats</p>
         <GroupChatModal>
