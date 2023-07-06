@@ -6,10 +6,12 @@ import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ChatState } from "../../Context/ChatProvider";
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const { darkMode, setDarkMode } = ChatState();
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -51,8 +53,9 @@ const Signup = () => {
           "Content-type": "application/json",
         },
       };
+      //https://chat-app-tien.onrender.com/
       const { data } = await axios.post(
-        "https://chat-app-tien.onrender.com/api/user",
+        "http://localhost:5000/api/user",
         {
           name,
           email,
@@ -159,7 +162,19 @@ const Signup = () => {
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+              {show ? (
+                <FaEye
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              ) : (
+                <FaEyeSlash
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              )}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -174,7 +189,19 @@ const Signup = () => {
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+              {show ? (
+                <FaEye
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              ) : (
+                <FaEyeSlash
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              )}
             </Button>
           </InputRightElement>
         </InputGroup>

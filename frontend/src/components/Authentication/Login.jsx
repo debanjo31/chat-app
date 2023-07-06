@@ -7,7 +7,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ChatState } from "../../Context/ChatProvider";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
@@ -15,7 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
-
+  const { darkMode, setDarkMode } = ChatState();
   const navigate = useNavigate();
 
   const submitHandler = async () => {
@@ -39,9 +39,9 @@ const Login = () => {
           "Content-type": "application/json",
         },
       };
-
+      // "https://chat-app-tien.onrender.com/api/user/login",
       const { data } = await axios.post(
-        "https://chat-app-tien.onrender.com/api/user/login",
+        "http://localhost:5000/api/user/login",
         { email, password },
         config
       );
@@ -93,7 +93,19 @@ const Login = () => {
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+              {show ? (
+                <FaEye
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              ) : (
+                <FaEyeSlash
+                  className={`   ${
+                    darkMode ? "text-blue-500" : "text-green-900"
+                  }`}
+                />
+              )}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -108,15 +120,15 @@ const Login = () => {
         Login
       </Button>
       <Button
-        variant="solid"
-        colorScheme="red"
         width="100%"
         onClick={() => {
           setEmail("guest@example.com");
           setPassword("123456");
         }}
       >
-        Get Guest User Credentials
+        <p className={`   ${darkMode ? "text-green-900 font-bold" : ""}`}>
+          Get Guest User Credentials
+        </p>
       </Button>
     </VStack>
   );

@@ -57,7 +57,11 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`https://chat-app-tien.onrender.com/api/user?search=${search}`, config);
+      // `https://chat-app-tien.onrender.com/api/user?search=${search}`
+      const { data } = await axios.get(
+        `http://localhost:5000/api/user?search=${search}`,
+        config
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -95,8 +99,9 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      // `https://chat-app-tien.onrender.com/api/chat/group`,
       const { data } = await axios.post(
-        `https://chat-app-tien.onrender.com/api/chat/group`,
+        `http://localhost:5000/api/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),

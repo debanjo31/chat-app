@@ -8,7 +8,7 @@ const ChatProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState([]);
-
+  const [darkMode, setDarkMode] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const ChatProvider = ({ children }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
-
+  //	chakra-ui-color-mode
   return (
     <ChatContext.Provider
       value={{
@@ -32,6 +32,8 @@ const ChatProvider = ({ children }) => {
         setNotification,
         chats,
         setChats,
+        darkMode,
+        setDarkMode,
       }}
     >
       {children}

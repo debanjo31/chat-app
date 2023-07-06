@@ -1,6 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
+import { Tooltip } from "@chakra-ui/tooltip";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getSender } from "../config/ChatLogics";
@@ -8,11 +9,22 @@ import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
+import Search from "./Search";
+import Profile from "./Profile";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const {
+    selectedChat,
+    setSelectedChat,
+    user,
+    chats,
+    setChats,
+    darkMode,
+    setDarkMode,
+  } = ChatState();
 
   const toast = useToast();
 
@@ -24,9 +36,9 @@ const MyChats = ({ fetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
+      // "https://chat-app-tien.onrender.com/api/chat",
       const { data } = await axios.get(
-        "https://chat-app-tien.onrender.com/api/chat",
+        "http://localhost:5000/api/chat",
         config
       );
       setChats(data);
@@ -50,12 +62,23 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <div
-      className={`bg-white p-2 md:p-6 text-green-800  rounded ${
-        selectedChat ? "hidden md:block" : "w-2/6"
-      }`}
+      className={`relative p-2 h-screen md:rounded-r-3xl  ${
+        darkMode ? "bg-green-900 text-white" : "bg-green-50 text-green-900"
+      }  ${selectedChat ? "hidden md:block w-full " : "w-full md:w-2/6"}`}
     >
+      <div className="flex justify-end text-lg mb-2">
+        {darkMode ? (
+          <FaSun onClick={() => setDarkMode(!darkMode)} />
+        ) : (
+          <FaMoon onClick={() => setDarkMode(!darkMode)} />
+        )}
+      </div>
       <div className="w-full flex flex-col mb-8 ">
-        <p className="text-2xl font-bold mb-2">My Chats</p>
+        <div className="flex justify-between">
+          <p className="text-2xl font-bold mb-2">CHATTIE</p>
+          <Profile />
+        </div>
+        <Search />
         <GroupChatModal>
           <Button rightIcon={<AddIcon />}>New Group Chat</Button>
         </GroupChatModal>

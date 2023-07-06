@@ -13,7 +13,17 @@
   background: #555;
 }
 
-.main-page {
-  height: calc(100vh - 7.4%);
+.tabStyle {
+  font-weight: bold;
+  position: relative;
+  cursor: pointer;
 }
 
+.tabStyle::after {
+  content: "";
+  height: 4px;
+  position: absolute;
+  left: -10px;
+  bottom: -10px;
+  background-color: rgb(59 130 246);
+}

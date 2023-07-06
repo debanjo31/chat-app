@@ -19,16 +19,6 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// app.get("/api/chat", (req, res) => {
-//   res.send(chats);
-// });
-
-// app.get("/api/chat/:id", (req, res) => {
-//   console.log(req.params.id);
-//   const singleChat = chats.find((c) => c._id == req.params.id);
-//   res.send(singleChat);
-// });
-
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
@@ -36,6 +26,7 @@ app.use("/api/message", messageRoutes);
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
+// origin: "https://chatapp-8ubi.onrender.com",
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
@@ -43,7 +34,7 @@ const server = app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://chatapp-8ubi.onrender.com",
+    origin: "http://localhost:5173",
     // credentials: true,
   },
 });
@@ -73,6 +64,7 @@ io.on("connection", (socket) => {
 
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });
+    
   });
 
   socket.off("setup", () => {

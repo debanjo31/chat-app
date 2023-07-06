@@ -1,36 +1,23 @@
+import React from "react";
+import { Box, Stack, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
+import { useToast } from "@chakra-ui/toast";
+import { Tooltip } from "@chakra-ui/tooltip";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Input } from "@chakra-ui/input";
-import { Box, Text } from "@chakra-ui/layout";
-import {
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/menu";
+import { useState } from "react";
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  DrawerCloseButton,
 } from "@chakra-ui/modal";
-import { Tooltip } from "@chakra-ui/tooltip";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import { Avatar } from "@chakra-ui/avatar";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useToast } from "@chakra-ui/toast";
-import ChatLoading from "../ChatLoading";
-import { Spinner } from "@chakra-ui/spinner";
-import ProfileModal from "./ProfileModal";
-import { getSender } from "../../config/ChatLogics";
-import UserListItem from "./userAvatar/UserListItem";
-import { ChatState } from "../../Context/ChatProvider";
+import { Input } from "@chakra-ui/input";
+import { ChatState } from "../Context/ChatProvider";
 
-function SideDrawer() {
+function Search() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,18 +30,8 @@ function SideDrawer() {
     setNotification,
     chats,
     setChats,
+    darkMode,
   } = ChatState();
-
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
-
-  const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
-    navigate("/");
-    setUser("");
-  };
-
   const handleSearch = async () => {
     if (!search) {
       toast({
@@ -75,8 +52,11 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-
-      const { data } = await axios.get(`https://chat-app-tien.onrender.com/api/user?search=${search}`, config);
+      //https://chat-app-tien.onrender.com/api/user?search=${search}
+      const { data } = await axios.get(
+        `http://localhost:5000/api/user?search=${search}`,
+        config
+      );
 
       setLoading(false);
       setSearchResult(data);
@@ -105,8 +85,9 @@ function SideDrawer() {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      //https://chat-app-tien.onrender.com/
       const { data } = await axios.post(
-        `https://chat-app-tien.onrender.com/api/chat`,
+        `http://localhost:5000/api/chat`,
         { userId },
         config
       );
@@ -127,52 +108,31 @@ function SideDrawer() {
     }
   };
 
-  console.log(user);
   return (
-    <>
-      <div className="h-12 flex px-4 py-2 justify-between">
-        <div>
-          <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-            <Button variant="ghost" onClick={onOpen}>
-              <i className="fas fa-search"></i>
-              <Text className="hidden md:block p-2 -mt-1">Search User</Text>
-            </Button>
-          </Tooltip>
-        </div>
-        <div>
-          <Text fontSize="2xl" fontFamily="Work sans">
-            Chat-APP
-          </Text>
-        </div>
-        <div className="text-green-800 font-bold">
-          <Menu>
-            <MenuButton>
-              <BellIcon className="text-xl" />
-            </MenuButton>
-          </Menu>
-          <Menu>
-            <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
-              <Avatar
-                size="sm"
-                cursor="pointer"
-                name={user.name}
-                src={user.pic}
-              />
-            </MenuButton>
-            <MenuList>
-              <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>
-              </ProfileModal>
-              <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        </div>
+    <div className="">
+      <div
+        className={`  rounded-lg mb-2 ${
+          darkMode ? "bg-white bg-opacity-30" : "bg-green-900 bg-opacity-70 "
+        }  `}
+        onClick={onOpen}
+      >
+        <Tooltip
+          label="Search Users to chat"
+          hasArrow
+          placement="bottom-end"
+          className="w-full"
+        >
+          <div className="w-full text-left flex p-2 gap-4">
+            <i className="fas fa-search text-white"></i>
+            <Text className=" -mt-1 font-bold text-white">Search User</Text>
+          </div>
+        </Tooltip>
       </div>
       <div>
-        <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <Drawer placement="left" size="xs" onClose={onClose} isOpen={isOpen}>
           <DrawerOverlay />
           <DrawerContent>
+            <DrawerCloseButton />
             <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
             <DrawerBody>
               <Box d="flex" pb={2}>
@@ -200,8 +160,8 @@ function SideDrawer() {
           </DrawerContent>
         </Drawer>
       </div>
-    </>
+    </div>
   );
 }
 
-export default SideDrawer;
+export default Search;

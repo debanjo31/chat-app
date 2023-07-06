@@ -16,7 +16,8 @@ import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
 
-const ENDPOINT = "https://chat-app-tien.onrender.com"; 
+// const ENDPOINT = "https://chat-app-tien.onrender.com";
+const ENDPOINT = "http://localhost:5000/";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -50,9 +51,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       };
 
       setLoading(true);
-
+      // `https://chat-app-tien.onrender.com/api/message/${selectedChat._id}`,
       const { data } = await axios.get(
-        `https://chat-app-tien.onrender.com/api/message/${selectedChat._id}`,
+        `http://localhost:5000/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -83,8 +84,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
         console.log(user._id);
+        // "https://chat-app-tien.onrender.com/api/message",
         const { data } = await axios.post(
-          "https://chat-app-tien.onrender.com/api/message",
+          "http://localhost:5000/api/message",
           {
             content: newMessage,
             chatId: selectedChat._id,
@@ -123,7 +125,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     fetchMessages();
 
     selectedChatCompare = selectedChat;
-    
+
     // eslint-disable-next-line
   }, [selectedChat]);
 
@@ -260,9 +262,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) : (
         // to get socket.io on same page
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">
-          <Text fontSize="3xl" pb={3} fontFamily="Work sans">
-            Click on a user to start chatting
-          </Text>
+          <div className="middle-text text-center">
+            <Text fontSize="3xl" pb={3} fontFamily="Work sans">
+              Click on a user to start chatting
+            </Text>
+          </div>
         </Box>
       )}
     </>

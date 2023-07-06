@@ -36,19 +36,24 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   try {
     var message = await Message.create(newMessage);
-    message = await message.populate("sender", "name pic");
-    message = await message.populate("chat");
+    await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
 
     // Define path variable before using it in User.populate()
     const path = "chat.users";
 
-    message = await User.populate({
+    message = await User.populate(message, {
       path: path,
       select: "name pic email",
     });
-    await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
-    res.json(message);
-    console.log(message);
+
+    message = await message.populate("sender", "name pic");
+    message = await message.populate("chat");
+    const dateTime = new Date(message.createdAt);
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const timeMessageSent = (hours % 12) + ":" + minutes + " " + ampm;
+    res.json(timeMessageSent);
   } catch (error) {
     console.log(error);
     res.status(400);
