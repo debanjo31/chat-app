@@ -11,10 +11,10 @@ import ProfileModal from "./miscellaneous/ProfileModal";
 import ScrollableChat from "./ScrollableChat";
 import Lottie from "lottie-react";
 import animationData from "../animations/typing.json";
-
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
+import { FaPaperPlane } from "react-icons/fa";
 
 // const ENDPOINT = "https://chat-app-tien.onrender.com";
 const ENDPOINT = "http://localhost:5000/";
@@ -168,7 +168,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   return (
-    <>
+    <div className="w-full h-full relative">
       {selectedChat ? (
         <>
           <Text
@@ -225,38 +225,44 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="messages">
+              <div className="h-full">
                 <ScrollableChat messages={messages} />
               </div>
             )}
-
-            <FormControl
-              onKeyDown={sendMessage}
-              id="first-name"
-              isRequired
-              mt={3}
-            >
-              {istyping ? (
-                <div>
-                  <Lottie
-                    options={defaultOptions}
-                    // height={50}
-                    width={70}
-                    style={{ marginBottom: 15, marginLeft: 0 }}
+            <div className="fixed bottom-2 w-full text-black pr-8 ">
+              <FormControl
+                onKeyDown={sendMessage}
+                id="first-name"
+                isRequired
+                mt={3}
+              >
+                {istyping ? (
+                  <div>
+                    <Lottie
+                      options={defaultOptions}
+                      // height={50}
+                      width={70}
+                      style={{ marginBottom: 15, marginLeft: 0 }}
+                    />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="flex">
+                  <Input
+                    variant="filled"
+                    placeholder="Enter a message.."
+                    value={newMessage}
+                    onChange={typingHandler}
+                    className="block  rounded-l-lg"
+                    focusBorderColor="rgb(20 83 45)"
                   />
+                  <div className=" bg-green-900 p-2 rounded-r-lg cursor-pointer">
+                    <FaPaperPlane className="text-white text-xl" />
+                  </div>
                 </div>
-              ) : (
-                <></>
-              )}
-              <Input
-                variant="filled"
-                bg="#E0E0E0"
-                placeholder="Enter a message.."
-                value={newMessage}
-                onChange={typingHandler}
-                className="block mt-48 "
-              />
-            </FormControl>
+              </FormControl>
+            </div>
           </Box>
         </>
       ) : (
@@ -269,7 +275,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           </div>
         </Box>
       )}
-    </>
+    </div>
   );
 };
 

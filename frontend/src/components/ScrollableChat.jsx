@@ -10,7 +10,7 @@ import {
 import { ChatState } from "../Context/ChatProvider";
 
 const ScrollableChat = ({ messages }) => {
-  const { user } = ChatState();
+  const { user, darkMode } = ChatState();
 
   return (
     <ScrollableFeed>
@@ -32,15 +32,21 @@ const ScrollableChat = ({ messages }) => {
             )}
             <span
               style={{
-                backgroundColor: `${
-                  m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
-                }`,
+                // backgroundColor: `${
+                //   m.sender._id === user._id ? "blue" : "green"
+                // }`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
                 borderRadius: "20px",
                 padding: "5px 15px",
                 maxWidth: "75%",
               }}
+              className={` ${
+                m.sender._id === user._id
+                  ? "bg-green-500 text-white"
+                  : "bg-blue-500 text-white"
+              } 
+                `}
             >
               {m.content}
             </span>

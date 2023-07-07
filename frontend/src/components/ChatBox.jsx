@@ -10,9 +10,11 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
   return (
     <div
       className={`chatBox relative md:rounded-l-3xl ${
-        darkMode ? "bg-green-900 text-white" : "bg-green-50 text-green-900"
-      }  w-full flex flex-col items-center rounded  relative ${
-        selectedChat ? "w-full md:w-4/6" : "hidden md:block"
+        darkMode
+          ? "h-screen bg-green-900 text-white"
+          : "bg-green-50 text-green-900"
+      }  w-full flex flex-col items-center  relative ${
+        selectedChat ? "md:w-4/6" : " hidden md:block md:w-4/6 "
       }`}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />

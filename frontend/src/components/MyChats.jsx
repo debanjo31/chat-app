@@ -64,7 +64,7 @@ const MyChats = ({ fetchAgain }) => {
     <div
       className={`relative p-2 h-screen md:rounded-r-3xl  ${
         darkMode ? "bg-green-900 text-white" : "bg-green-50 text-green-900"
-      }  ${selectedChat ? "hidden md:block w-full " : "w-full md:w-2/6"}`}
+      }  ${selectedChat ? "md:w-2/6 hidden md:block" : "w-full md:w-2/6"}`}
     >
       <div className="flex justify-end text-lg mb-2">
         {darkMode ? (
@@ -87,11 +87,18 @@ const MyChats = ({ fetchAgain }) => {
         {chats ? (
           <Stack overflowY="scroll" className="">
             {chats.map((chat) => (
-              <Box
+              <div
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
+                // bg={selectedChat === chat ? "#38B2AC" : "bg-white"}
+                // color={selectedChat === chat ? "white" : "text-green-900"}
+                className={` mb-4 p-2 rounded-md cursor-pointer ${
+                  selectedChat === chat ? "" : " bg-blue-500"
+                } ${
+                  darkMode
+                    ? " bg-green-50 text-green-900"
+                    : "bg-green-900 text-white "
+                }   `}
                 px={3}
                 py={2}
                 borderRadius="lg"
@@ -110,7 +117,7 @@ const MyChats = ({ fetchAgain }) => {
                       : chat.latestMessage.content}
                   </Text>
                 )}
-              </Box>
+              </div>
             ))}
           </Stack>
         ) : (
