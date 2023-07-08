@@ -14,9 +14,10 @@ import {
   Image,
 } from "@chakra-ui/react";
 
+
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   return (
     <>
       {children ? (

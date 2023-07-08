@@ -38,7 +38,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     var message = await Message.create(newMessage);
     message = await message.populate("sender", "name pic");
     message = await message.populate("chat");
-
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
     // Define path variable before using it in User.populate()
     const path = "chat.users";
 
@@ -46,7 +46,8 @@ const sendMessage = asyncHandler(async (req, res) => {
       path: path,
       select: "name pic email",
     });
-    await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
+    
+
     const dateTime = new Date(message.createdAt);
     const hours = dateTime.getHours();
     const minutes = dateTime.getMinutes();
