@@ -55,7 +55,7 @@ const Signup = () => {
       };
       //http://localhost:5000/api/user /
       const { data } = await axios.post(
-        "https://chat-app-tien.onrender.com",
+        "https://chat-app-tien.onrender.com/api/user",
         {
           name,
           email,
