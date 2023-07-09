@@ -1,6 +1,10 @@
 .messages {
+  height: calc(100vh - 78px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
+
+  padding-top: 65px;
 }

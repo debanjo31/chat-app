@@ -58,7 +58,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       );
       setMessages(data);
       setLoading(false);
-        console.log(user._id)
+
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
       toast({
@@ -72,8 +72,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
+  const sendMessageBtn = async () => {
+    console.log(newMessage, messages);
+    if (newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -83,7 +84,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         };
         setNewMessage("");
-        console.log(user._id);
         // "https://chat-app-tien.onrender.com/api/message",
         const { data } = await axios.post(
           "http://localhost:5000/api/message",
@@ -98,7 +98,43 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
-        console.log(error);
+        toast({
+          title: "Error Occured!",
+          description: "Failed to send the Message",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+    }
+  };
+  const sendMessage = async (event) => {
+    if (event.key === "Enter" && newMessage) {
+      socket.emit("stop typing", selectedChat._id);
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+
+        // "https://chat-app-tien.onrender.com/api/message",
+        const { data } = await axios.post(
+          "http://localhost:5000/api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+            userId: user._id,
+          },
+          config
+        );
+
+        socket.emit("new message", data);
+        setMessages([...messages, data]);
+      } catch (error) {
         toast({
           title: "Error Occured!",
           description: "Failed to send the Message",
@@ -130,7 +166,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]);
 
   useEffect(() => {
-    console.log(selectedChat);
     socket.on("message recieved", (newMessageRecieved) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
@@ -167,44 +202,39 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }, timerLength);
   };
 
+  const backBtn = () => {
+    setSelectedChat("");
+    setNewMessage("");
+  };
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full   relative">
       {selectedChat ? (
-        <>
-          <Text
-            fontSize={{ base: "28px", md: "30px" }}
-            pb={3}
-            px={2}
-            w="100%"
-            fontFamily="Work sans"
-            d="flex"
-            justifyContent={{ base: "space-between" }}
-            alignItems="center"
-          >
+        <div className="relative">
+          <div className="fixed top-0 w-full z-5 text-md px-2 h-16 py-3 text-white flex gap-4 bg-green-900 ">
             <IconButton
               d={{ base: "flex", md: "none" }}
               icon={<ArrowBackIcon />}
-              onClick={() => setSelectedChat("")}
+              onClick={backBtn}
             />
             {messages &&
               (!selectedChat.isGroupChat ? (
-                <>
+                <div>
                   {getSender(user, selectedChat.users)}
                   <ProfileModal
                     user={getSenderFull(user, selectedChat.users)}
                   />
-                </>
+                </div>
               ) : (
-                <>
+                <div>
                   {selectedChat.chatName.toUpperCase()}
                   <UpdateGroupChatModal
                     fetchMessages={fetchMessages}
                     fetchAgain={fetchAgain}
                     setFetchAgain={setFetchAgain}
                   />
-                </>
+                </div>
               ))}
-          </Text>
+          </div>
           <Box
             d="flex"
             flexDir="column"
@@ -225,11 +255,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="h-full">
+              <div className="messages">
                 <ScrollableChat messages={messages} />
               </div>
             )}
-            <div className="fixed bottom-2 w-full text-black pr-8 ">
+            <div className=" text-black pr-8 ">
               <FormControl
                 onKeyDown={sendMessage}
                 id="first-name"
@@ -246,7 +276,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     />
                   </div>
                 ) : (
-                  <></>
+                  <div></div>
                 )}
                 <div className="flex">
                   <Input
@@ -254,17 +284,20 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     placeholder="Enter a message.."
                     value={newMessage}
                     onChange={typingHandler}
-                    className="block  rounded-l-lg"
+                    className="block rounded-l-lg"
                     focusBorderColor="rgb(20 83 45)"
                   />
-                  <div className=" bg-green-900 p-2 rounded-r-lg cursor-pointer">
+                  <div
+                    className=" bg-green-900 p-2 rounded-r-lg cursor-pointer"
+                    onClick={sendMessageBtn}
+                  >
                     <FaPaperPlane className="text-white text-xl" />
                   </div>
                 </div>
               </FormControl>
             </div>
           </Box>
-        </>
+        </div>
       ) : (
         // to get socket.io on same page
         <Box d="flex" alignItems="center" justifyContent="center" h="100%">

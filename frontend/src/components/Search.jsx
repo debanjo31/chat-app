@@ -15,6 +15,9 @@ import {
 } from "@chakra-ui/modal";
 import { Input } from "@chakra-ui/input";
 import { ChatState } from "../Context/ChatProvider";
+import axios from "axios";
+import ChatLoading from "./ChatLoading";
+import UserListItem from "./miscellaneous/userAvatar/UserListItem"
 
 function Search() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,6 +35,9 @@ function Search() {
     setChats,
     darkMode,
   } = ChatState();
+  
+  const toast = useToast();
+
   const handleSearch = async () => {
     if (!search) {
       toast({
