@@ -33,7 +33,7 @@ const server = app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://chatapp-8ubi.onrender.com",
+    origin: "https://chattie-y1aa.onrender.com",
     // credentials: true,
   },
 });
