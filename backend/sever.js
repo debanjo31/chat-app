@@ -1,6 +1,5 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const { chats } = require("./data/data");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
@@ -26,7 +25,7 @@ app.use("/api/message", messageRoutes);
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
-// origin: "https://chatapp-8ubi.onrender.com",
+// origin: "http://localhost:5173",
 
 const PORT = process.env.PORT;
 const server = app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
@@ -34,7 +33,7 @@ const server = app.listen(PORT, console.log(`Server running on PORT ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://chatapp-8ubi.onrender.com",
     // credentials: true,
   },
 });
@@ -64,7 +63,6 @@ io.on("connection", (socket) => {
 
       socket.in(user._id).emit("message recieved", newMessageRecieved);
     });
-    
   });
 
   socket.off("setup", () => {

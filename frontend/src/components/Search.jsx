@@ -59,9 +59,9 @@ function Search() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      //https://chat-app-tien.onrender.com/api/user?search=${search}
+      //http://localhost:5000/api/user?search=${search}
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${search}`,
+        `https://chat-app-tien.onrender.com/api/user?search=${search}`,
         config
       );
 
@@ -92,9 +92,9 @@ function Search() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      //https://chat-app-tien.onrender.com/
+      //http://localhost:5000
       const { data } = await axios.post(
-        `http://localhost:5000/api/chat`,
+        `https://chat-app-tien.onrender.com/api/chat`,
         { userId },
         config
       );

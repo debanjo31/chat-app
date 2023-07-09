@@ -53,9 +53,9 @@ const Signup = () => {
           "Content-type": "application/json",
         },
       };
-      //https://chat-app-tien.onrender.com/
+      //http://localhost:5000/api/user /
       const { data } = await axios.post(
-        "http://localhost:5000/api/user",
+        "https://chat-app-tien.onrender.com",
         {
           name,
           email,

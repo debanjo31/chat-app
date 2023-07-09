@@ -16,8 +16,8 @@ import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
 import { FaPaperPlane } from "react-icons/fa";
 
-// const ENDPOINT = "https://chat-app-tien.onrender.com";
-const ENDPOINT = "http://localhost:5000/";
+// const ENDPOINT = "http://localhost:5000/";
+const ENDPOINT = "https://chat-app-tien.onrender.com";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -51,9 +51,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       };
 
       setLoading(true);
-      // `https://chat-app-tien.onrender.com/api/message/${selectedChat._id}`,
+      // `http://localhost:5000/api/message/${selectedChat._id}`,
       const { data } = await axios.get(
-        `http://localhost:5000/api/message/${selectedChat._id}`,
+        `https://chat-app-tien.onrender.com/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -84,9 +84,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         };
         setNewMessage("");
-        // "https://chat-app-tien.onrender.com/api/message",
+        // "http://localhost:5000/api/message",
         const { data } = await axios.post(
-          "http://localhost:5000/api/message",
+          "https://chat-app-tien.onrender.com/api/message",
           {
             content: newMessage,
             chatId: selectedChat._id,
@@ -121,9 +121,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
 
-        // "https://chat-app-tien.onrender.com/api/message",
+        // "http://localhost:5000/api/message",
         const { data } = await axios.post(
-          "http://localhost:5000/api/message",
+          "https://chat-app-tien.onrender.com/api/message",
           {
             content: newMessage,
             chatId: selectedChat._id,

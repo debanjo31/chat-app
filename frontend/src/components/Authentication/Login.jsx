@@ -122,8 +122,8 @@ const Login = () => {
       <Button
         width="100%"
         onClick={() => {
-          setEmail("guest@example.com");
-          setPassword("123456");
+          setEmail("guest@chattie.com");
+          setPassword("789456123");
         }}
       >
         <p className={`   ${darkMode ? "text-green-900 font-bold" : ""}`}>
