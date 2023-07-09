@@ -39,9 +39,9 @@ const Login = () => {
           "Content-type": "application/json",
         },
       };
-      // "https://chat-app-tien.onrender.com/api/user/login",
+      //  "http://localhost:5000/api/user/login",
       const { data } = await axios.post(
-        "http://localhost:5000/api/user/login",
+        "https://chat-app-tien.onrender.com/api/user/login",
         { email, password },
         config
       );

@@ -131,7 +131,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
-
+        console.log(data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
@@ -247,13 +247,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             overflowY="hidden"
           >
             {loading ? (
-              <Spinner
-                size="xl"
-                w={20}
-                h={20}
-                alignSelf="center"
-                margin="auto"
-              />
+              <div className="mt-20 text-center flex justify-center">
+                <Spinner
+                  size="xl"
+                  w={20}
+                  h={20}
+                  alignSelf="center"
+                  margin="auto"
+                />
+              </div>
             ) : (
               <div className="messages">
                 <ScrollableChat messages={messages} />
