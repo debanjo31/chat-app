@@ -85,7 +85,7 @@ const MyChats = ({ fetchAgain }) => {
       </div>
       <div>
         {chats ? (
-          <Stack overflowY="scroll" className="">
+          <Stack overflowY="scroll" className="mychat">
             {chats.map((chat) => (
               <div
                 onClick={() => setSelectedChat(chat)}

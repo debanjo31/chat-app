@@ -1,10 +1,13 @@
 .messages {
-  height: calc(100vh - 78px);
+  height: calc(100vh - 85px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
-
   padding-top: 65px;
+}
+
+.mychat {
+  height: 70vh;
 }
