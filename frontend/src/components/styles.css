@@ -1,5 +1,5 @@
 .messages {
-  height: calc(100vh - 85px);
+  height: calc(95vh - 85px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
