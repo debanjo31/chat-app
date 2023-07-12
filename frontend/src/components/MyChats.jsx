@@ -11,7 +11,7 @@ import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 import Search from "./Search";
 import Profile from "./Profile";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaUsers } from "react-icons/fa";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
@@ -78,10 +78,16 @@ const MyChats = ({ fetchAgain }) => {
           <p className="text-2xl font-bold mb-2">CHATTIE</p>
           <Profile />
         </div>
-        <Search />
-        <GroupChatModal>
-          <Button rightIcon={<AddIcon />}>New Group Chat</Button>
-        </GroupChatModal>
+        <div className="flex w-full ">
+          <Search />
+          <div className="w-1/6 flex-none   ">
+            <GroupChatModal>
+              <button className="text-2xl font-bold text-right ml-auto block bg-white text-green-900 p-2">
+                <FaUsers />
+              </button>
+            </GroupChatModal>
+          </div>
+        </div>
       </div>
       <div>
         {chats ? (

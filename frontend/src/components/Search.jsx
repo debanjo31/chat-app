@@ -116,7 +116,7 @@ function Search() {
   };
 
   return (
-    <div className="">
+    <div className="w-5/6 flex-auto">
       <div
         className={`  rounded-lg mb-2 ${
           darkMode ? "bg-white bg-opacity-30" : "bg-green-900 bg-opacity-70 "

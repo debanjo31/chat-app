@@ -18,6 +18,7 @@ import { useState } from "react";
 import UserListItem from "./userAvatar/UserListItem";
 import UserBadgeItem from "./userAvatar/UserBadgeItem";
 import { ChatState } from "../../Context/ChatProvider";
+
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
