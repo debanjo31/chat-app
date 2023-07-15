@@ -73,7 +73,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   const sendMessageBtn = async () => {
-    console.log(newMessage, messages);
     if (newMessage) {
       socket.emit("stop typing", selectedChat._id);
       try {
@@ -94,7 +93,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
-          console.log(data)
+
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
@@ -131,7 +130,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
-        console.log(data);
+
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
@@ -198,6 +197,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     setSelectedChat("");
     setNewMessage("");
   };
+
   return (
     <div className="w-full   relative">
       {selectedChat ? (

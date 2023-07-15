@@ -13,17 +13,18 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-
-
+import { Avatar } from "@chakra-ui/avatar";
+import { ChatState } from "../../Context/ChatProvider";
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
   return (
     <>
       {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
-        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+        <Avatar size="md" cursor="pointer" name={user.name} src={user.pic} />
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
