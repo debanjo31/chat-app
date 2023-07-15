@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
 
       if (user == newMessageRecieved.sender._id) return;
       console.log (newMessageRecieved)
-      socket.to(user).emit("message recieved", newMessageRecieved);
+      socket.to(socket.id).emit("message recieved", newMessageRecieved);
       console.log (" sent")
     }
   });
