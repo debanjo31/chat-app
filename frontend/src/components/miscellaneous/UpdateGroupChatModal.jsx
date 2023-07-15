@@ -210,7 +210,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
   return (
     <>
-    <AvatarGroup size={md} max={2}  onClick={onOpen}>
+    <AvatarGroup size='md' max={2}  onClick={onOpen}>
     {selectedChat.users.map((u) => (
                 <Avatar
                   key={u._id}
