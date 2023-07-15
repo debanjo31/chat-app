@@ -57,14 +57,15 @@ io.on("connection", (socket) => {
     let chat = newMessageRecieved.chat;
 
     if (!chat.users) return console.log("chat.users not defined");
-    for (let i = 0; i < chat.users.length; i++) {
-      let user = chat.users[i];
+    socket.in(chat.users).emit("message recieved", newMessageRecieved);
+    // for (let i = 0; i < chat.users.length; i++) {
+    //   let user = chat.users[i];
 
-      if (user == newMessageRecieved.sender._id) return;
-       console.log (newMessageRecieved)
-      socket.in(room).emit("message recieved", newMessageRecieved);
-      console.log (" sent")
-    }
+    //   if (user == newMessageRecieved.sender._id) return;
+    //    console.log (newMessageRecieved)
+    //   socket.in(room).emit("message recieved", newMessageRecieved);
+     
+    // }
   });
 
   socket.off("setup", () => {
