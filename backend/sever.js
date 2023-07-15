@@ -61,8 +61,8 @@ io.on("connection", (socket) => {
       let user = chat.users[i];
 
       if (user == newMessageRecieved.sender._id) return;
-      console.log (newMessageRecieved)
-      socket.to(socket.id).emit("message recieved", newMessageRecieved);
+       console.log (newMessageRecieved)
+      socket.in(user).emit("message recieved", newMessageRecieved);
       console.log (" sent")
     }
   });
