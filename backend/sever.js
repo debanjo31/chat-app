@@ -61,12 +61,13 @@ io.on("connection", (socket) => {
       let user = chat.users[i];
 
       if (user == newMessageRecieved.sender._id) return;
-
-      socket.in(user).emit("message recieved", newMessageRecieved);
+      console.log (newMessageRecieved)
+      socket.to(user).emit("message recieved", newMessageRecieved);
+      console.log (" sent")
     }
   });
 
-  socket.off("setup", () => {
+  socket.on("disconnect", () => {
     console.log("USER DISCONNECTED");
     socket.leave(userData._id);
   });
