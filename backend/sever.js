@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
 
       if (user == newMessageRecieved.sender._id) return;
        console.log (newMessageRecieved)
-      socket.in(chat.users).emit("message recieved", newMessageRecieved);
+      socket.in(room).emit("message recieved", newMessageRecieved);
       console.log (" sent")
     }
   });
