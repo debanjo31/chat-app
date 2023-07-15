@@ -31,7 +31,7 @@ function Homepage() {
 
   return (
     <div
-      className={` h-screen  ${
+      className={`homepage min-h-screen pb-12  ${
         darkMode ? "bg-green-900 text-white" : "bg-green-50 text-green-900"
       }`}
     >

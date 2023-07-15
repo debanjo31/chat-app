@@ -63,7 +63,7 @@ const GroupChatModal = ({ children }) => {
         `https://chat-app-tien.onrender.com/api/user?search=${search}`,
         config
       );
-      console.log(data);
+    
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -156,7 +156,7 @@ const GroupChatModal = ({ children }) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Add Users eg: John, Piyush, Jane"
+                placeholder="Add Users eg: Debanjo, Michael, Ayo, Simi"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               />

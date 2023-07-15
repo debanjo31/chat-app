@@ -21,6 +21,8 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "./userAvatar/UserBadgeItem";
 import UserListItem from "./userAvatar/UserListItem";
+import { Avatar, AvatarGroup } from "@chakra-ui/react";
+
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,13 +33,16 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
 
+
   const { selectedChat, setSelectedChat, user } = ChatState();
+  console.log(selectedChat)
 
   const handleSearch = async (query) => {
     setSearch(query);
     if (!query) {
       return;
     }
+
 
     try {
       setLoading(true);
@@ -47,7 +52,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.get(`https://chat-app-tien.onrender.com/api/user?search=${search}`, config);
-      console.log(data);
+    
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -82,7 +87,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         config
       );
 
-      console.log(data._id);
+      
       // setSelectedChat("");
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
@@ -205,8 +210,16 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
 
   return (
     <>
-      <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+    <AvatarGroup size={md} max={2}  onClick={onOpen}>
+    {selectedChat.users.map((u) => (
+                <Avatar
+                  key={u._id}
+                  name={u.name}
+                  src={u.pic}
+                />
+              ))}
+    </AvatarGroup>
+    <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader

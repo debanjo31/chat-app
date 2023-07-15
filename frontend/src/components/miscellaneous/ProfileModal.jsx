@@ -14,7 +14,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/avatar";
-import { ChatState } from "../../Context/ChatProvider";
+
 const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));

@@ -72,7 +72,7 @@ const Login = () => {
   };
 
   return (
-    <VStack spacing="10px" className="h-screen">
+    <VStack spacing="10px" className="">
       <FormControl id="email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input

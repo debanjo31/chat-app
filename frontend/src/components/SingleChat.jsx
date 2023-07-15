@@ -209,15 +209,15 @@ console.log(selectedChatCompare)
             />
             {messages &&
               (!selectedChat.isGroupChat ? (
-                <div>
-                  {getSender(user, selectedChat.users)}
+                <div className="ml-12 flex">
+                  <p className="mr-4 text-3xl">{getSender(user, selectedChat.users)}</p> 
                   <ProfileModal
                     user={getSenderFull(user, selectedChat.users)}
                   />
                 </div>
               ) : (
-                <div>
-                  {selectedChat.chatName.toUpperCase()}
+                <div className="ml-12 flex">
+                  <p className="mr-4 text-3xl"> {selectedChat.chatName.toUpperCase()}</p> 
                   <UpdateGroupChatModal
                     fetchMessages={fetchMessages}
                     fetchAgain={fetchAgain}
