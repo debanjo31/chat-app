@@ -94,7 +94,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
-
+          console.log(data)
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
