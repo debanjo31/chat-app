@@ -4,7 +4,7 @@ import { Box, Text } from "@chakra-ui/layout";
 import "./styles.css";
 import { IconButton, Spinner, useToast } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../config/ChatLogics";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
@@ -28,6 +28,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const toast = useToast();
+  const lastMessageRef = useRef(null);
 
   const defaultOptions = {
     loop: true,
@@ -37,12 +38,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const { selectedChat, setSelectedChat, user, notification, setNotification } =
-    ChatState();
+  ChatState();
 
   const fetchMessages = async () => {
-    if (!selectedChat) return;
-
+    
     try {
       const config = {
         headers: {
@@ -71,9 +70,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       });
     }
   };
+  const { selectedChat, setSelectedChat, user, notification, setNotification } = ChatState()
 
   const sendMessageBtn = async () => {
     if (newMessage) {
+    if (!selectedChat) return;
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -197,6 +198,11 @@ console.log(selectedChatCompare)
     setNewMessage("");
   };
 
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messages]);
+
   return (
     <div className="w-full   relative">
       {selectedChat ? (
@@ -248,9 +254,13 @@ console.log(selectedChatCompare)
                 />
               </div>
             ) : (
-              <div className="messages">
+             
+<div className="messages">
                 <ScrollableChat messages={messages} />
+                 <div ref={lastMessageRef} ></div>
               </div>
+            
+              
             )}
             <div className=" text-black pr-8 ">
               <FormControl

@@ -12,7 +12,7 @@ import { ChatState } from "../Context/ChatProvider";
 import Search from "./Search";
 import Profile from "./Profile";
 import { FaSun, FaMoon, FaUsers } from "react-icons/fa";
-
+import Notification from "./Notification";
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
@@ -76,7 +76,11 @@ const MyChats = ({ fetchAgain }) => {
       <div className="w-full flex flex-col mb-8 ">
         <div className="flex justify-between">
           <p className="text-2xl font-bold mb-2">CHATTIE</p>
+          <div className="flex">
+            <Notification />
           <Profile />
+          </div>
+      
         </div>
         <div className="flex w-full ">
           <Search />

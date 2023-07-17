@@ -29,11 +29,7 @@ function Profile() {
     <div
       className={` font-bold ${darkMode ? "text-white" : "text-green-900"}  `}
     >
-      <Menu>
-        <MenuButton>
-          <BellIcon className="text-xl" />
-        </MenuButton>
-      </Menu>
+      
       <Menu>
         <MenuButton>
           <Avatar size="sm" cursor="pointer" name={user.name} src={user.pic} />
